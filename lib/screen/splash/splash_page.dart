@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:child_app_drektor/screen/login/login_page.dart';
+import '../../screen/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'package:child_app_drektor/screen/main_page.dart';
-import 'package:child_app_drektor/screen/connect/connect_page.dart';
+import '../../screen/main_page.dart';
+import '../../screen/connect/connect_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

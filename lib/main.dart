@@ -1,8 +1,7 @@
-import 'package:child_app_drektor/screen/splash/splash_page.dart';
+import '../screen/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:child_app_drektor/screen/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Muhim
