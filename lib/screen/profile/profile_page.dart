@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import '../splash/splash_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -12,10 +13,19 @@ class ProfilePage extends StatelessWidget {
     Get.offAll(() => const SplashPage());
   }
 
+  void showLoadingDialog() {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+  }
+
   void showChangePasswordDialog(BuildContext context) {
     final oldController = TextEditingController();
     final newController = TextEditingController();
     final confirmController = TextEditingController();
+    final box = GetStorage();
+    final token = box.read('token');
 
     showDialog(
       context: context,
@@ -65,7 +75,7 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Parol tasdiqlash
+              // Parolni tasdiqlash
               TextField(
                 controller: confirmController,
                 obscureText: true,
@@ -96,21 +106,75 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     child: const Text("Saqlash"),
-                    onPressed: () {
-                      if (newController.text != confirmController.text) {
+                    onPressed: () async {
+                      final oldPassword = oldController.text.trim();
+                      final newPassword = newController.text.trim();
+                      final confirmPassword = confirmController.text.trim();
+
+                      if (newPassword != confirmPassword) {
                         Get.snackbar(
                           "Xatolik",
-                          "Parollar mos emas",
+                          "Yangi parollar bir-biriga mos emas",
                           backgroundColor: Colors.red,
                           colorText: Colors.white,
                         );
-                      } else {
-                        // Parolni o‘zgartirish backendga yuborilsa, shu yerga yoziladi
-                        Get.back();
+                        return;
+                      }
+
+                      try {
+                        showLoadingDialog(); // 🌀 loading start
+
+                        final response = await http.post(
+                          Uri.parse("https://atko.tech/child_app/public/api/password/update"),
+                          headers: {
+                            "Accept": "application/json",
+                            "Authorization": "Bearer $token",
+                          },
+                          body: {
+                            "current_password": oldPassword,
+                            "new_password": newPassword,
+                            "repeat_new_password": confirmPassword,
+                          },
+                        );
+
+                        Get.back(); // 🛑 loading dismiss
+
+                        if (response.statusCode == 200) {
+                          Get.back(); // modalni yopish
+                          Get.snackbar(
+                            "Muvaffaqiyatli",
+                            "Parol muvaffaqiyatli yangilandi",
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                          );
+                        } else if (response.statusCode == 401) {
+                          Get.snackbar(
+                            "Xatolik",
+                            "Joriy parol noto‘g‘ri",
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
+                        } else if (response.statusCode == 422) {
+                          Get.snackbar(
+                            "Xatolik",
+                            "Ma’lumotlar to‘liq emas yoki noto‘g‘ri",
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
+                        } else {
+                          Get.snackbar(
+                            "Xatolik",
+                            "Noma’lum xatolik yuz berdi",
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
+                        }
+                      } catch (e) {
+                        Get.back(); // loading yopilsin
                         Get.snackbar(
-                          "Muvaffaqiyatli",
-                          "Parol yangilandi",
-                          backgroundColor: Colors.green,
+                          "Tarmoq xatosi",
+                          "Internet aloqani tekshiring",
+                          backgroundColor: Colors.red,
                           colorText: Colors.white,
                         );
                       }
@@ -124,7 +188,6 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,14 +220,15 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Center(
-              child: Text(name,
-                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              child: Text(
+                name,
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 4),
             Center(child: Text(email)),
             const SizedBox(height: 4),
             Center(child: Text(type)),
-
 
             const Spacer(),
             ElevatedButton.icon(
@@ -178,7 +242,6 @@ class ProfilePage extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
               ),
             ),
-
             const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () => logout(context),
