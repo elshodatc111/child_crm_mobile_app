@@ -20,23 +20,6 @@ class BalanceCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 8),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.account_balance_wallet, color: Colors.blueAccent),
-                SizedBox(width: 8),
-                Text(
-                  "Balansda mavjud",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF333333),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -54,7 +37,7 @@ class BalanceCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Naqt",
+                              "Mavjud: Naqt",
                               style: TextStyle(color: Colors.grey),
                             ),
                             Text(
@@ -87,7 +70,7 @@ class BalanceCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Plastik",
+                              "Mavjud: Plastik",
                               style: TextStyle(color: Colors.grey),
                             ),
                             Text(

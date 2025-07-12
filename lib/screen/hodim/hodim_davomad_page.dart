@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HodimPage extends StatelessWidget {
-  const HodimPage({super.key});
+class HodimDavomadPage extends StatelessWidget {
+  const HodimDavomadPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +9,46 @@ class HodimPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
           children: [
             _buildCard(
               icon: Icons.manage_accounts,
-              title: "Direktor & Menejerlar",
-              subtitle: "Rahbariyat xodimlari",
+              title: "Menegerlar",
+              subtitle: "Menegerlar davomati",
               color: Colors.deepPurple,
-              onTap: () {},
+              onTap: () {
+                // Menegerlar davomad sahifasiga o'tish
+              },
+            ),
+            const SizedBox(height: 16),
+            _buildCard(
+              icon: Icons.school,
+              title: "Tarbiyachilar",
+              subtitle: "Tarbiyachi xodimlar davomati",
+              color: Colors.teal,
+              onTap: () {
+                // Tarbiyachilar davomad sahifasiga o'tish
+              },
+            ),
+            const SizedBox(height: 16),
+            _buildCard(
+              icon: Icons.people_alt_rounded,
+              title: "Hodimlar",
+              subtitle: "Umumiy xodimlar davomati",
+              color: Colors.indigo,
+              onTap: () {
+                // Hodimlar davomad sahifasiga o'tish
+              },
+            ),
+            const SizedBox(height: 16),
+            _buildCard(
+              icon: Icons.restaurant,
+              title: "Oshpazlar",
+              subtitle: "Oshpazlar davomati",
+              color: Colors.orange,
+              onTap: () {
+                // Oshpazlar davomad sahifasiga o'tish
+              },
             ),
             const SizedBox(height: 12),
             _buildCard(
@@ -24,30 +56,6 @@ class HodimPage extends StatelessWidget {
               title: "O'qituvchilar",
               subtitle: "Fan o'qituvchilari",
               color: Colors.teal,
-              onTap: () {},
-            ),
-            const SizedBox(height: 12),
-            _buildCard(
-              icon: Icons.child_care,
-              title: "Tarbiyachilar",
-              subtitle: "Bog‘cha tarbiyachilari",
-              color: Colors.indigo,
-              onTap: () {},
-            ),
-            const SizedBox(height: 12),
-            _buildCard(
-              icon: Icons.restaurant_menu,
-              title: "Oshpazlar",
-              subtitle: "Oshxona xodimlari",
-              color: Colors.orange,
-              onTap: () {},
-            ),
-            const SizedBox(height: 12),
-            _buildCard(
-              icon: Icons.people,
-              title: "Hodimlar",
-              subtitle: "Yordamchi xodimlar",
-              color: Colors.blue,
               onTap: () {},
             ),
             const SizedBox(height: 12),
@@ -93,7 +101,7 @@ class HodimPage extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        leading: Icon(icon, color: color, size: 30),
+        leading: Icon(icon, color: color, size: 32),
         title: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

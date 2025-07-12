@@ -1,19 +1,15 @@
-import 'package:child_app_drektor/screen/chart/chart_page.dart';
+import '../screen/chart/chart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'package:child_app_drektor/screen/child/child_page.dart';
-import 'package:child_app_drektor/screen/davomad_hodim/hodim_davomad_page.dart';
-import 'package:child_app_drektor/screen/groups/groups_page.dart';
-import 'package:child_app_drektor/screen/hodim/hodim_page.dart';
-import 'package:child_app_drektor/screen/home/home_page.dart';
-import 'package:child_app_drektor/screen/kassa/kassa_page.dart';
-import 'package:child_app_drektor/screen/moliya/moliya_page.dart';
-import 'package:child_app_drektor/screen/profile/profile_page.dart';
-import 'package:child_app_drektor/screen/report/report_page.dart';
-import 'package:child_app_drektor/screen/setting/setting_page.dart';
-import 'package:child_app_drektor/screen/vizet/vizet_page.dart';
+import '../screen/child/child_page.dart';
+import '../screen/hodim/hodim_davomad_page.dart';
+import '../screen/groups/groups_page.dart';
+import '../screen/home/home_page.dart';
+import '../screen/kassa/kassa_page.dart';
+import '../screen/moliya/moliya_page.dart';
+import '../screen/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -43,43 +39,31 @@ class _MainPageState extends State<MainPage> {
     final allPages = [
       const HomePage(),
       const ChildPage(),
-      const VizetPage(),
       const GroupsPage(),
       const HodimDavomadPage(),
       const KassaPage(),
       const MoliyaPage(),
-      const ChartPage(), // Statistika
-      const ReportPage(),
-      const HodimPage(),
-      const SettingPage(),
+      const ChartPage(),
     ];
 
     final allTitles = [
       "Bosh sahifa",
       "Bolalar",
-      "Tashriflar",
       "Guruhlar",
-      "Hodimlar Davomadi",
+      "Hodimlar",
       "Kassa",
       "Moliya",
       "Statistika",
-      "Hisobotlar",
-      "Hodimlar",
-      "Sozlamalar",
     ];
 
     final allIcons = [
       Icons.dashboard,
       Icons.emoji_emotions,
-      Icons.apartment,
       Icons.account_tree,
       Icons.event_note,
       Icons.account_balance_wallet,
       Icons.bar_chart,
       Icons.pie_chart_outline,
-      Icons.insert_drive_file,
-      Icons.people,
-      Icons.settings,
     ];
 
     List<int> allowedIndexes = [];
@@ -87,9 +71,9 @@ class _MainPageState extends State<MainPage> {
     if (type == 'direktor') {
       allowedIndexes = List.generate(allPages.length, (index) => index); // Hammasi
     } else if (type == 'menejer') {
-      allowedIndexes = [0, 1, 2, 3, 4, 5, 9]; // Tanlanganlar
+      allowedIndexes = [0, 1, 2, 3, 4]; // Tanlanganlar
     } else if (type == 'tarbiyachi' || type == 'kichik_tarbiyachi') {
-      allowedIndexes = [0, 1, 2, 3]; // Faqat zarurlari
+      allowedIndexes = [0, 1, 2]; // Faqat zarurlari
     } else {
       allowedIndexes = [0]; // Default: faqat bosh sahifa va sozlamalar
     }
