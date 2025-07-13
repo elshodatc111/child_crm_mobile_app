@@ -144,7 +144,7 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                               child_id: widget.id,
                                               comments: comments,
                                               onCommentsUpdated: () async {
-                                                await fetchChildren(); // Sahifani yangilash
+                                                await fetchChildren();
                                               },
                                             ),
                                       ),
@@ -267,10 +267,17 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                 width: Get.width * 0.45,
                                 child: OutlinedButton.icon(
                                   onPressed: () {
-                                    Get.to(
-                                      () => ChildQarindoshPage(
-                                        child_id: widget.id,
-                                        parents: parents,
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (_) => ChildQarindoshPage(
+                                          child_id: widget.id,
+                                          parents: parents,
+                                          onCommentsUpdated: () async {
+                                            await fetchChildren();
+                                          },
+                                        ),
                                       ),
                                     );
                                   },
