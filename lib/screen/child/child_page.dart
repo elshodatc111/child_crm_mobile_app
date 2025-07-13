@@ -1,4 +1,7 @@
+import 'package:child_app_drektor/screen/child/new_tashrif/create_tashrif_page.dart';
+import 'package:child_app_drektor/screen/child/tashriv_child/tashriflar_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChildPage extends StatelessWidget {
   const ChildPage({super.key});
@@ -114,34 +117,7 @@ class ChildPage extends StatelessWidget {
                 subtitle: Text("Tashriflar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  // Kerakli sahifaga yo‘naltirish yoki funksiyani chaqirish
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-                border: Border(left: BorderSide(color: Colors.green, width: 5)),
-              ),
-              child: ListTile(
-                leading: Icon(Icons.person_add_alt_1_rounded, color: Colors.green, size: 32),
-                title: Text(
-                  "Yangi tashrif",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                subtitle: Text("Yangi tashrif"),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {
-                  // Kerakli sahifaga yo‘naltirish yoki funksiyani chaqirish
+                  Get.to(()=>TashriflarPage());
                 },
               ),
             ),

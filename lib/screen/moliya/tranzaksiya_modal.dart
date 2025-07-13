@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:child_app_drektor/const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -42,8 +43,9 @@ class _TranzaksiyaModalState extends State<TranzaksiyaModal> {
     setState(() => isLoading = true);
 
     try {
+      final api = ApiConst().apiUrl;
       final response = await http.post(
-        Uri.parse('https://atko.tech/child_app/public/api/moliya/chiqim'),
+        Uri.parse('$api/moliya/chiqim'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',

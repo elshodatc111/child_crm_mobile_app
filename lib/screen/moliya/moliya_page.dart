@@ -1,3 +1,5 @@
+import 'package:child_app_drektor/const/api_const.dart';
+
 import '../../screen/moliya/show_tranzaksiya_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -33,8 +35,9 @@ class _MoliyaPageState extends State<MoliyaPage> {
     try {
       final box = GetStorage();
       final token = box.read('token');
+      final api = ApiConst().apiUrl;
       final response = await http.get(
-        Uri.parse('https://atko.tech/child_app/public/api/moliya'),
+        Uri.parse('$api/moliya'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',

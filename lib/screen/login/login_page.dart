@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:child_app_drektor/const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -28,10 +29,11 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => isLoading = true);
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
+    final api = ApiConst().apiUrl;
 
     try {
       final response = await http.post(
-        Uri.parse('https://atko.tech/child_app/public/api/login'),
+        Uri.parse('$api/login'),
         body: {'email': email, 'password': password},
       );
 

@@ -1,3 +1,4 @@
+import 'package:child_app_drektor/const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -123,9 +124,9 @@ class ProfilePage extends StatelessWidget {
 
                       try {
                         showLoadingDialog(); // 🌀 loading start
-
+                        final api = ApiConst().apiUrl;
                         final response = await http.post(
-                          Uri.parse("https://atko.tech/child_app/public/api/password/update"),
+                          Uri.parse("$api/password/update"),
                           headers: {
                             "Accept": "application/json",
                             "Authorization": "Bearer $token",
