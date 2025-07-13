@@ -27,6 +27,8 @@ class _ChildShowPageState extends State<ChildShowPage> {
   List<dynamic> parents = [];
   List<dynamic> comments = [];
   bool isLoading = true;
+  final String type = GetStorage().read('user')['type'] ?? '';
+
 
   @override
   void initState() {
@@ -174,37 +176,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                 child: OutlinedButton.icon(
                                   onPressed: () {
                                     Get.to(
-                                      () => ChildShowPaymartPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.payment,
-                                    color: Colors.orange,
-                                  ),
-                                  label: const Text("To‘lovlar"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: Colors.orange,
-                                    ),
-                                    foregroundColor: Colors.orange,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
                                       () => ChildGroupHistoryPage(
                                         child_id: widget.id,
                                       ),
@@ -220,6 +191,37 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                       color: Colors.purple,
                                     ),
                                     foregroundColor: Colors.purple,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    textStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12.0),
+                              type=='tarbiyachi'?Text(''):type=='kichik_tarbiyachi'?Text(""):SizedBox(
+                                width: Get.width * 0.45,
+                                child: OutlinedButton.icon(
+                                  onPressed: () {
+                                    Get.to(
+                                          () => ChildShowPaymartPage(
+                                        child_id: widget.id,
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.payment,
+                                    color: Colors.orange,
+                                  ),
+                                  label: const Text("To‘lovlar"),
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: Colors.orange,
+                                    ),
+                                    foregroundColor: Colors.orange,
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 14,
                                     ),
@@ -305,7 +307,36 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                 child: OutlinedButton.icon(
                                   onPressed: () {
                                     Get.to(
-                                      () => ChildCreatePaymartPage(
+                                      () => ChildDavomadHistoryPage(
+                                        child_id: widget.id,
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.event_available,
+                                    color: Colors.teal,
+                                  ),
+                                  label: const Text("Davomad tarixi"),
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(color: Colors.teal),
+                                    foregroundColor: Colors.teal,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    textStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12.0),
+                              type=='tarbiyachi'?Text(''):type=='kichik_tarbiyachi'?Text(""):SizedBox(
+                                width: Get.width * 0.45,
+                                child: OutlinedButton.icon(
+                                  onPressed: () {
+                                    Get.to(
+                                          () => ChildCreatePaymartPage(
                                         child_id: widget.id,
                                       ),
                                     );
@@ -320,35 +351,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                       color: Colors.orange,
                                     ),
                                     foregroundColor: Colors.orange,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
-                                      () => ChildDavomadHistoryPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.event_available,
-                                    color: Colors.teal,
-                                  ),
-                                  label: const Text("Davomad tarixi"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.teal),
-                                    foregroundColor: Colors.teal,
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 14,
                                     ),
