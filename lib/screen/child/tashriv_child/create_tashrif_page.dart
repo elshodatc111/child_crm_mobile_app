@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:child_app_drektor/const/api_const.dart';
+import '../../../const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -108,7 +108,7 @@ class _CreateTashrifPageState extends State<CreateTashrifPage> {
             content: Text(data["message"] ?? "Muvaffaqiyatli saqlandi!",style: TextStyle(color: Colors.white),),
           ),
         );
-        Navigator.pop(context);
+        Navigator.pop(context, true);
       } else if (response.statusCode == 422) {
         // Validation errorlarni ko'rsatish
         final errors = data['errors'] ?? {};

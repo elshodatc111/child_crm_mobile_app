@@ -1,4 +1,4 @@
-import 'package:child_app_drektor/screen/child/new_tashrif/create_tashrif_page.dart';
+import 'package:child_app_drektor/screen/child/tashriv_child/create_tashrif_page.dart';
 import 'package:child_app_drektor/screen/child/tashriv_child/tashriflar_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
