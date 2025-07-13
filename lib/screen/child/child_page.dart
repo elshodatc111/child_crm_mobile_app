@@ -1,3 +1,5 @@
+import 'package:child_app_drektor/screen/child/active_child/active_child_page.dart';
+import 'package:child_app_drektor/screen/child/qarz_child/debit_child_page.dart';
 import 'package:child_app_drektor/screen/child/tashriv_child/create_tashrif_page.dart';
 import 'package:child_app_drektor/screen/child/tashriv_child/tashriflar_page.dart';
 import 'package:flutter/material.dart';
@@ -36,34 +38,7 @@ class ChildPage extends StatelessWidget {
                 subtitle: Text("Hozirda faol bo'lganlar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  // Kerakli sahifaga yo‘naltirish yoki funksiyani chaqirish
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-                border: Border(left: BorderSide(color: Colors.red, width: 5)),
-              ),
-              child: ListTile(
-                leading: Icon(Icons.cancel, color: Colors.red, size: 32),
-                title: Text(
-                  "Tark etgan bolalar",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                subtitle: Text("Bog‘chani tark etganlar"),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {
-                  // Kerakli sahifaga yo‘naltirish yoki funksiyani chaqirish
+                  Get.to(()=>ActiveChildPage());
                 },
               ),
             ),
@@ -90,7 +65,7 @@ class ChildPage extends StatelessWidget {
                 subtitle: Text("To‘lov qilmagan bolalar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  // Kerakli sahifaga yo‘naltirish yoki funksiyani chaqirish
+                  Get.to(()=>DebitChildPage());
                 },
               ),
             ),
