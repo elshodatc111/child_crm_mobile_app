@@ -9,11 +9,12 @@ import 'package:intl/intl.dart';
 class ChildShowPaymartPage extends StatefulWidget {
   final int child_id;
   final List<dynamic> parents;
+  final VoidCallback onCommentsUpdated;
 
   const ChildShowPaymartPage({
     super.key,
     required this.child_id,
-    required this.parents,
+    required this.parents, required this.onCommentsUpdated,
   });
 
   @override
@@ -71,6 +72,9 @@ class _ChildShowPaymartPageState extends State<ChildShowPaymartPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("To'lovlar"),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context, true);
+        }, icon: Icon(Icons.arrow_back)),
         actions: [
           widget.parents.length > 0
               ? IconButton(

@@ -39,7 +39,7 @@ class _ActiveChildPageState extends State<ActiveChildPage> {
         if (data['success'] == true) {
           setState(() {
             allChildren = data['children'];
-            filteredChildren = allChildren;
+            filteredChildren = applySearch(data['children'], searchQuery);
             isLoading = false;
           });
         } else {
@@ -60,15 +60,18 @@ class _ActiveChildPageState extends State<ActiveChildPage> {
     setState(() => isLoading = false);
   }
 
+  List<dynamic> applySearch(List<dynamic> children, String query) {
+    return children.where((child) {
+      final name = (child['name'] ?? '').toLowerCase();
+      final group = (child['group_name'] ?? '').toLowerCase();
+      return name.contains(query.toLowerCase()) || group.contains(query.toLowerCase());
+    }).toList();
+  }
+
   void onSearch(String query) {
     setState(() {
-      searchQuery = query.toLowerCase();
-      filteredChildren =
-          allChildren.where((child) {
-            final name = (child['name'] ?? '').toLowerCase();
-            final group = (child['group_name'] ?? '').toLowerCase();
-            return name.contains(searchQuery) || group.contains(searchQuery);
-          }).toList();
+      searchQuery = query;
+      filteredChildren = applySearch(allChildren, query);
     });
   }
 
@@ -80,58 +83,58 @@ class _ActiveChildPageState extends State<ActiveChildPage> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      body:
-          isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                children: [
-                  Container(
-                    color: Colors.blue,
-                    padding: const EdgeInsets.all(8),
-                    child: TextField(
-                      onChanged: onSearch,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: 'Ism yoki guruh bo‘yicha qidiring',
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        contentPadding: const EdgeInsets.symmetric(vertical: 4),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child:
-                        filteredChildren.isEmpty
-                            ? const Center(
-                              child: Text("Hech qanday bola topilmadi."),
-                            )
-                            : ListView.builder(
-                              padding: const EdgeInsets.all(8),
-                              itemCount: filteredChildren.length,
-                              itemBuilder: (context, index) {
-                                final child = filteredChildren[index];
-                                final balansColor =
-                                    child['balans'] >= 0
-                                        ? Colors.green
-                                        : Colors.red;
-                                return ChildsItemCard(
-                                  id: child['id'],
-                                  name: child['name'],
-                                  birthday: child['birthday'],
-                                  group_name: child['group_name'],
-                                  balans: child['balans'],
-                                  balansColor: balansColor,
-                                );
-                              },
-                            ),
-                  ),
-                ],
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+        children: [
+          Container(
+            color: Colors.blue,
+            padding: const EdgeInsets.all(8),
+            child: TextField(
+              onChanged: onSearch,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: 'Ism yoki guruh bo‘yicha qidiring',
+                filled: true,
+                fillColor: Colors.grey[200],
+                contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
               ),
+            ),
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: fetchChildren,
+              child: filteredChildren.isEmpty
+                  ? const Center(
+                child: Text("Hech qanday bola topilmadi."),
+              )
+                  : ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8),
+                itemCount: filteredChildren.length,
+                itemBuilder: (context, index) {
+                  final child = filteredChildren[index];
+                  final balansColor = child['balans'] >= 0
+                      ? Colors.green
+                      : Colors.red;
+                  return ChildsItemCard(
+                    id: child['id'],
+                    name: child['name'],
+                    birthday: child['birthday'],
+                    group_name: child['group_name'],
+                    balans: child['balans'],
+                    balansColor: balansColor,
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-

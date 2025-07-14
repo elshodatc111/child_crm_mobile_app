@@ -91,178 +91,155 @@ class _ChildShowPageState extends State<ChildShowPage> {
           isLoading ? "Yuklanmoqda..." : about?['name'] ?? "Bola haqida",
         ),
         actions: [
-          type == 'tarbiyachi'
-              ? Text('')
-              : type == 'kichik_tarbiyachi'
-              ? Text("")
-              : IconButton(
-                onPressed: () {
-                  Get.to(() => ChildShowPaymartPage(child_id: widget.id,parents: parents,));
-                },
-                icon: Icon(Icons.account_balance_wallet),
-              ),
+          if (type != 'tarbiyachi' && type != 'kichik_tarbiyachi')
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ChildShowPaymartPage(
+                      child_id: widget.id,
+                      parents: parents,
+                      onCommentsUpdated: () async {
+                        await fetchChildren();
+                      },
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.account_balance_wallet),
+            ),
         ],
       ),
-      body:
-          isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    ChildAboutViewPage(about: about!),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder:
-                                            (_) => ChildCommentPage(
-                                              child_id: widget.id,
-                                              comments: comments,
-                                              onCommentsUpdated: () async {
-                                                await fetchChildren();
-                                              },
-                                            ),
-                                      ),
-                                    );
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+        onRefresh: fetchChildren,
+        child: ListView(
+          padding: const EdgeInsets.all(8),
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
+            ChildAboutViewPage(about: about!),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.45,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ChildCommentPage(
+                                  child_id: widget.id,
+                                  comments: comments,
+                                  onCommentsUpdated: () async {
+                                    await fetchChildren();
                                   },
-                                  icon: const Icon(
-                                    Icons.comment,
-                                    color: Colors.blue,
-                                  ),
-                                  label: const Text("Izohlar"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.blue),
-                                    foregroundColor: Colors.blue,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 12.0),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
-                                      () => ChildGroupHistoryPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.history_edu,
-                                    color: Colors.purple,
-                                  ),
-                                  label: const Text("Guruhlar tarixi"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: Colors.purple,
-                                    ),
-                                    foregroundColor: Colors.purple,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            );
+                          },
+                          icon: const Icon(Icons.comment, color: Colors.blue),
+                          label: const Text("Izohlar"),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.blue),
+                            foregroundColor: Colors.blue,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder:
-                                            (_) => ChildQarindoshPage(
-                                              child_id: widget.id,
-                                              parents: parents,
-                                              onCommentsUpdated: () async {
-                                                await fetchChildren();
-                                              },
-                                            ),
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.group,
-                                    color: Colors.green,
-                                  ),
-                                  label: const Text("Yaqin qarindoshlar"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.green),
-                                    foregroundColor: Colors.green,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
-                                      () => ChildDavomadHistoryPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.event_available,
-                                    color: Colors.teal,
-                                  ),
-                                  label: const Text("Davomad tarixi"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.teal),
-                                    foregroundColor: Colors.teal,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: Get.width * 0.45,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Get.to(() => ChildGroupHistoryPage(child_id: widget.id));
+                          },
+                          icon: const Icon(Icons.history_edu, color: Colors.purple),
+                          label: const Text("Guruhlar tarixi"),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.purple),
+                            foregroundColor: Colors.purple,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.45,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ChildQarindoshPage(
+                                  child_id: widget.id,
+                                  parents: parents,
+                                  onCommentsUpdated: () async {
+                                    await fetchChildren();
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.group, color: Colors.green),
+                          label: const Text("Yaqin qarindoshlar"),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.green),
+                            foregroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: Get.width * 0.45,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Get.to(() => ChildDavomadHistoryPage(child_id: widget.id));
+                          },
+                          icon: const Icon(Icons.event_available, color: Colors.teal),
+                          label: const Text("Davomad tarixi"),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.teal),
+                            foregroundColor: Colors.teal,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -166,9 +166,9 @@ class _ChildCreatePaymartPageState extends State<ChildCreatePaymartPage> {
                       color: Colors.white,
                     ),
                   )
-                      : const Icon(Icons.send),
+                      : const Icon(Icons.send,color: Colors.white,),
                   label: Text(
-                    isLoading ? "Yuborilmoqda..." : "Saqlash",
+                    isLoading ? "Yuborilmoqda..." : "Saqlash",style: TextStyle(color: Colors.white),
                   ),
                   onPressed: isLoading
                       ? null
