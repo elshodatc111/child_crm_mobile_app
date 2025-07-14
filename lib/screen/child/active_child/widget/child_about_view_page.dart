@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChildAboutViewPage extends StatelessWidget {
   final Map<String, dynamic> about;
 
   const ChildAboutViewPage({super.key, required this.about});
-
+  Future<void> launchPhoneCall(String phoneNumber) async {
+    final Uri url = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Telefon raqam ochilmadi: $phoneNumber';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final formatter = NumberFormat("#,###", "uz_UZ");
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -18,9 +27,9 @@ class ChildAboutViewPage extends StatelessWidget {
           _divider(),
           _infoRow("Yashash manzili:", about['addres']),
           _divider(),
-          _infoRow("Telefon raqam:", about['phone1']),
+          _infoRowPhone("Telefon raqam:", about['phone1']),
           _divider(),
-          _infoRow("Qoshimcha telefon raqam:", about['phone2']),
+          _infoRowPhone("Qoshimcha telefon raqam:", about['phone2']),
           _divider(),
           _infoRow("Balans:", "${formatter.format(about['balans'])} so'm"),
           _divider(),
@@ -52,6 +61,33 @@ class ChildAboutViewPage extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: Text(
+              value,
+              textAlign: TextAlign.right,
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _infoRowPhone(String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(width: 16),
+          InkWell(
+            onTap: (){
+              if (value != null) {
+                launchPhoneCall(value);
+              }
+            },
+            child:Text(
               value,
               textAlign: TextAlign.right,
               style: const TextStyle(fontSize: 16, color: Colors.black87),

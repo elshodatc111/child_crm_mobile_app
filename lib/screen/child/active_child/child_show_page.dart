@@ -29,7 +29,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
   bool isLoading = true;
   final String type = GetStorage().read('user')['type'] ?? '';
 
-
   @override
   void initState() {
     super.initState();
@@ -92,6 +91,18 @@ class _ChildShowPageState extends State<ChildShowPage> {
         title: Text(
           isLoading ? "Yuklanmoqda..." : about?['name'] ?? "Bola haqida",
         ),
+        actions: [
+          type == 'tarbiyachi'
+              ? Text('')
+              : type == 'kichik_tarbiyachi'
+              ? Text("")
+              : IconButton(
+                onPressed: () {
+                  Get.to(() => ChildShowPaymartPage(child_id: widget.id));
+                },
+                icon: Icon(Icons.account_balance_wallet),
+              ),
+        ],
       ),
       body:
           isLoading
@@ -107,33 +118,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
                         Expanded(
                           child: Column(
                             children: [
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    if (about!['phone1'] != null) {
-                                      launchPhoneCall(about!['phone1']);
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.phone_in_talk,
-                                    color: Colors.blue,
-                                  ),
-                                  label: const Text("Qo'ng'iroq (Tel1)"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.blue),
-                                    foregroundColor: Colors.blue,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
                               SizedBox(
                                 width: Get.width * 0.45,
                                 child: OutlinedButton.icon(
@@ -201,37 +185,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 12.0),
-                              type=='tarbiyachi'?Text(''):type=='kichik_tarbiyachi'?Text(""):SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
-                                          () => ChildShowPaymartPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.payment,
-                                    color: Colors.orange,
-                                  ),
-                                  label: const Text("To‘lovlar"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: Colors.orange,
-                                    ),
-                                    foregroundColor: Colors.orange,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -242,44 +195,17 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                 width: Get.width * 0.45,
                                 child: OutlinedButton.icon(
                                   onPressed: () {
-                                    if (about!['phone2'] != null) {
-                                      launchPhoneCall(about!['phone2']);
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.phone_forwarded,
-                                    color: Colors.blue,
-                                  ),
-                                  label: const Text("Qo'ng'iroq (Tel2)"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: Colors.blue),
-                                    foregroundColor: Colors.blue,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder:
                                             (_) => ChildQarindoshPage(
-                                          child_id: widget.id,
-                                          parents: parents,
-                                          onCommentsUpdated: () async {
-                                            await fetchChildren();
-                                          },
-                                        ),
+                                              child_id: widget.id,
+                                              parents: parents,
+                                              onCommentsUpdated: () async {
+                                                await fetchChildren();
+                                              },
+                                            ),
                                       ),
                                     );
                                   },
@@ -320,37 +246,6 @@ class _ChildShowPageState extends State<ChildShowPage> {
                                   style: OutlinedButton.styleFrom(
                                     side: const BorderSide(color: Colors.teal),
                                     foregroundColor: Colors.teal,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              type=='tarbiyachi'?Text(''):type=='kichik_tarbiyachi'?Text(""):SizedBox(
-                                width: Get.width * 0.45,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    Get.to(
-                                          () => ChildCreatePaymartPage(
-                                        child_id: widget.id,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.attach_money,
-                                    color: Colors.orange,
-                                  ),
-                                  label: const Text("To‘lov qilish"),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: Colors.orange,
-                                    ),
-                                    foregroundColor: Colors.orange,
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 14,
                                     ),
