@@ -97,7 +97,7 @@ class _ChildShowPageState extends State<ChildShowPage> {
               ? Text("")
               : IconButton(
                 onPressed: () {
-                  Get.to(() => ChildShowPaymartPage(child_id: widget.id));
+                  Get.to(() => ChildShowPaymartPage(child_id: widget.id,parents: parents,));
                 },
                 icon: Icon(Icons.account_balance_wallet),
               ),

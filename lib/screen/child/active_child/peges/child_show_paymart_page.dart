@@ -8,8 +8,13 @@ import 'package:intl/intl.dart';
 
 class ChildShowPaymartPage extends StatefulWidget {
   final int child_id;
+  final List<dynamic> parents;
 
-  const ChildShowPaymartPage({super.key, required this.child_id});
+  const ChildShowPaymartPage({
+    super.key,
+    required this.child_id,
+    required this.parents,
+  });
 
   @override
   State<ChildShowPaymartPage> createState() => _ChildShowPaymartPageState();
@@ -67,33 +72,40 @@ class _ChildShowPaymartPageState extends State<ChildShowPaymartPage> {
       appBar: AppBar(
         title: Text("To'lovlar"),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (_) => ChildCreatePaymartPage(
-                        child_id: widget.child_id,
-                        onCommentsUpdated: () async {
-                          await fetchPaymarts();
-                        },
-                      ),
-                ),
-              );
-            },
-            icon: Icon(Icons.add_circle_outline_sharp),
-          ),
+          widget.parents.length > 0
+              ? IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (_) => ChildCreatePaymartPage(
+                            child_id: widget.child_id,
+                            parents: widget.parents,
+                            onCommentsUpdated: () async {
+                              await fetchPaymarts();
+                            },
+                          ),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.add_circle_outline_sharp),
+              )
+              : Text(""),
         ],
       ),
       body:
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : paymarts.isEmpty
-              ? const Center(
-                child: Text(
-                  "To'lov ma`lumotlari topilmadi",
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
+              ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "To'lov ma`lumotlari topilmadi.\nTo'lov kiritish uchun yaqin qarindoshlarini kiriting.",
+                    textAlign: TextAlign.center, // Matnni o‘rtaga tekislaydi
+                    style: const TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
                 ),
               )
               : ListView.builder(
@@ -148,7 +160,10 @@ class PaymartItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.blue, width: 1.5),
+        border: Border.all(
+          color: type == 'naqt' ? Colors.blue : Colors.blueAccent.shade400,
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
