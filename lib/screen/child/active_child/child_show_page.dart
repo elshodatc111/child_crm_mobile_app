@@ -1,5 +1,4 @@
 import './peges/child_comment_page.dart';
-import './peges/child_create_paymart_page.dart';
 import './peges/child_davomad_history_page.dart';
 import './peges/child_group_history_page.dart';
 import './peges/child_qarindosh_page.dart';

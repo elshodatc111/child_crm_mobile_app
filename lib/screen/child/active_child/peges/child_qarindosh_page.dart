@@ -1,4 +1,4 @@
-import 'package:child_app_drektor/const/api_const.dart';
+import '../../../../const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -156,7 +156,7 @@ class _ChildQarindoshPageState extends State<ChildQarindoshPage> {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: Colors.blue,width: 1.2)
+                          side: BorderSide(color: Colors.blue, width: 1.2),
                         ),
                         backgroundColor: Colors.blue,
                       ),
@@ -172,7 +172,10 @@ class _ChildQarindoshPageState extends State<ChildQarindoshPage> {
                               )
                               : const Text(
                                 'Saqlash',
-                                style: TextStyle(fontSize: 16,color: Colors.white),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:child_app_drektor/const/api_const.dart';
+import '../../../../const/api_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -100,14 +99,17 @@ class CardItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: isActive ? Colors.green : Colors.red, width: 1.3),
+        border: Border.all(
+          color: isActive ? Colors.green : Colors.red,
+          width: 1.3,
+        ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 6,
             offset: const Offset(0, 3),
-          )
+          ),
         ],
       ),
       child: Padding(
@@ -126,20 +128,20 @@ class CardItem extends StatelessWidget {
             const SizedBox(height: 10),
             isActive
                 ? _buildActiveGroup(
-              group['start_time'],
-              group['paymart_type'],
-              group['start_manager'],
-              group['start_comment'],
-            )
+                  group['start_time'],
+                  group['paymart_type'],
+                  group['start_manager'],
+                  group['start_comment'],
+                )
                 : _buildEndGroup(
-              group['start_time'],
-              group['end_time'],
-              group['paymart_type'],
-              group['start_manager'],
-              group['end_manager'],
-              group['start_comment'],
-              group['end_comment'],
-            ),
+                  group['start_time'],
+                  group['end_time'],
+                  group['paymart_type'],
+                  group['start_manager'],
+                  group['end_manager'],
+                  group['start_comment'],
+                  group['end_comment'],
+                ),
           ],
         ),
       ),
@@ -170,16 +172,20 @@ class CardItem extends StatelessWidget {
   }
 
   Widget _buildActiveGroup(
-      String start,
-      String paymartType,
-      String manager,
-      String comment,
-      ) {
+    String start,
+    String paymartType,
+    String manager,
+    String comment,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _infoRow(Icons.date_range, "Boshlanish vaqti", start),
-        _infoRow(Icons.payment, "To‘lov turi", paymartType=='day'?"Kunlik":"Oylik"),
+        _infoRow(
+          Icons.payment,
+          "To‘lov turi",
+          paymartType == 'day' ? "Kunlik" : "Oylik",
+        ),
         _infoRow(Icons.person, "Qo‘shgan menejer", manager),
         _infoRow(Icons.comment, "Izoh", comment),
       ],
@@ -187,20 +193,24 @@ class CardItem extends StatelessWidget {
   }
 
   Widget _buildEndGroup(
-      String start,
-      String end,
-      String paymartType,
-      String startManager,
-      String endManager,
-      String startComment,
-      String endComment,
-      ) {
+    String start,
+    String end,
+    String paymartType,
+    String startManager,
+    String endManager,
+    String startComment,
+    String endComment,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _infoRow(Icons.date_range, "Boshlanish vaqti", start),
         _infoRow(Icons.event_busy, "Yakunlangan vaqti", end),
-        _infoRow(Icons.payment, "To‘lov turi", paymartType=='day'?"Kunlik":"Oylik"),
+        _infoRow(
+          Icons.payment,
+          "To‘lov turi",
+          paymartType == 'day' ? "Kunlik" : "Oylik",
+        ),
         _infoRow(Icons.person, "Qo‘shgan menejer", startManager),
         _infoRow(Icons.comment, "Qo‘shish izohi", startComment),
         const Divider(height: 20),
