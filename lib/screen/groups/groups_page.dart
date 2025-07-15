@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:child_app_drektor/screen/groups/group_show_page.dart';
+import './../groups/group_show_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
