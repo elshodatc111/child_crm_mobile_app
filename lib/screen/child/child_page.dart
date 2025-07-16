@@ -1,9 +1,11 @@
-import 'package:child_app_drektor/screen/child/active_child/active_child_page.dart';
-import 'package:child_app_drektor/screen/child/davomad/hodim_davomad_page.dart';
-import 'package:child_app_drektor/screen/child/qarz_child/debit_child_page.dart';
-import 'package:child_app_drektor/screen/child/tashriv_child/create_tashrif_page.dart';
-import 'package:child_app_drektor/screen/child/tashriv_child/tashriflar_page.dart';
-import 'package:child_app_drektor/screen/child/vacancy/hodim_vacansy_page.dart';
+import 'package:get_storage/get_storage.dart';
+
+import '../../screen/child/active_child/active_child_page.dart';
+import '../../screen/child/davomad/hodim_davomad_page.dart';
+import '../../screen/child/qarz_child/debit_child_page.dart';
+import '../../screen/child/tashriv_child/tashriflar_page.dart';
+import '../../screen/child/techer/techer_page.dart';
+import '../../screen/child/vacancy/hodim_vacansy_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,9 @@ class ChildPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final user = box.read('user') ?? {};
+    final String type = user['type'] ?? '';
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -98,7 +103,7 @@ class ChildPage extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.0,),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -110,47 +115,84 @@ class ChildPage extends StatelessWidget {
                     offset: Offset(0, 3),
                   ),
                 ],
-                border: const Border(left: BorderSide(color: Colors.green, width: 5)),
+                border: const Border(
+                  left: BorderSide(color: Colors.indigo, width: 5), // O‘qituvchilar uchun mos rang
+                ),
               ),
               child: ListTile(
-                leading: const Icon(Icons.calendar_today, color: Colors.green, size: 32),
+                leading: const Icon(
+                  Icons.school_outlined, // O‘qituvchi bilan bog‘liq ikonka
+                  color: Colors.indigo,
+                  size: 32,
+                ),
                 title: const Text(
-                  "Hodimlar",
+                  "O‘qituvchilar",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                subtitle: const Text("Hodimlar kunlik davomadi"),
+                subtitle: const Text("Barcha o'qituvchilar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  Get.to(()=>HodimDavomadPage());
+                  Get.to(() => TecherPage());
                 },
               ),
             ),
-            const SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
+            type=='tarbiyachi'?Text(""):type=='kichik_tarbiyachi'?Text(""):Column(
+              children: [
+                const SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    border: const Border(left: BorderSide(color: Colors.green, width: 5)),
                   ),
-                ],
-                border: const Border(left: BorderSide(color: Colors.orange, width: 5)),
-              ),
-              child: ListTile(
-                leading: const Icon(Icons.work_outline, color: Colors.orange, size: 32),
-                title: const Text(
-                  "Hodimlar Vakansiya",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  child: ListTile(
+                    leading: const Icon(Icons.calendar_today, color: Colors.green, size: 32),
+                    title: const Text(
+                      "Hodimlar",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    subtitle: const Text("Hodimlar kunlik davomadi"),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Get.to(()=>HodimDavomadPage());
+                    },
+                  ),
                 ),
-                subtitle: const Text("Bo'sh ish o'rinlari uchun nomzodlar"),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {
-                  Get.to(()=>HodimVacansyPage());
-                },
-              ),
+                const SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    border: const Border(left: BorderSide(color: Colors.orange, width: 5)),
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.work_outline, color: Colors.orange, size: 32),
+                    title: const Text(
+                      "Hodimlar Vakansiya",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    subtitle: const Text("Bo'sh ish o'rinlari uchun nomzodlar"),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Get.to(()=>HodimVacansyPage());
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),

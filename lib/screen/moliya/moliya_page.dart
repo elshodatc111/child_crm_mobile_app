@@ -71,36 +71,64 @@ class _MoliyaPageState extends State<MoliyaPage> {
     return isLoading
         ? const Scaffold(body: Center(child: CircularProgressIndicator()))
         : Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            BalanceCard(naqt: naqt, plastik: plastik),
-            const SizedBox(height: 20),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Oxirgi 45 kunlik tranzaksiyalar",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                BalanceCard(naqt: naqt, plastik: plastik),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 1.2),
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  margin: EdgeInsets.only(top: 8.0),
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () => showTranzaksiyaModal(context, fetchMoliyaData),
+                    icon: const Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.teal,
+                      size: 24,
+                    ),
+                    label: const Text(
+                      "Yangi tranzaksiya",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16), // Dumaloqlik
+                      ),
+                      backgroundColor: Colors.white
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Oxirgi 45 kunlik tranzaksiyalar",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: history.length,
+                    itemBuilder:
+                        (context, index) => HistoryItem(item: history[index]),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: history.length,
-                itemBuilder: (context, index) => HistoryItem(item: history[index]),
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showTranzaksiyaModal(context, fetchMoliyaData),
-        icon: const Icon(Icons.add_circle_outline, color: Colors.white),
-        label: const Text("Yangi tranzaksiya", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    );
+          ),
+        );
   }
 }

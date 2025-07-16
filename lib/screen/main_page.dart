@@ -1,9 +1,8 @@
-import 'package:child_app_drektor/screen/chart/chart_page.dart';
-import 'package:child_app_drektor/screen/child/child_page.dart';
-import 'package:child_app_drektor/screen/groups/groups_page.dart';
-import 'package:child_app_drektor/screen/home/home_page.dart';
-import 'package:child_app_drektor/screen/kassa/kassa_page.dart';
-import 'package:child_app_drektor/screen/moliya/moliya_page.dart';
+import '../screen/chart/chart_page.dart';
+import '../screen/child/child_page.dart';
+import '../screen/groups/groups_page.dart';
+import '../screen/kassa/kassa_page.dart';
+import '../screen/moliya/moliya_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

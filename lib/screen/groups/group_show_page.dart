@@ -21,8 +21,7 @@ class GroupShowPage extends StatefulWidget {
 class _GroupShowPageState extends State<GroupShowPage> {
   Map<String, dynamic> about = {};
   List<dynamic> ish_kunlar = [];
-  String davomadStatus = 'false';
-
+  bool davomadStatus = false;
   bool isLoading = true;
 
   @override

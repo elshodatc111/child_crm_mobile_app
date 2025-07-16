@@ -103,22 +103,30 @@ class GroupCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(12.0))
       ),
       margin: EdgeInsets.symmetric(vertical: 4.0),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        title: Text(
-          name,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.people, color: Colors.grey),
-            Text("$count ta bola"),
-          ],
-        ),
-        onTap: () {
+      padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 12.0),
+      child: InkWell(
+        onTap: (){
           Get.to(()=>GroupShowPage(group_id: group_id));
         },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Text("Guruh:",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
+                SizedBox(width: 4.0,),
+                Text(name,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0),),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.people, color: Colors.grey),
+                SizedBox(width: 4,),
+                Text("$count ta bola"),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
