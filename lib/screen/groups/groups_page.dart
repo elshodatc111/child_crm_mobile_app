@@ -24,9 +24,7 @@ class _GroupsPageState extends State<GroupsPage> {
   }
 
   Future<void> fetchGroups() async {
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
 
     final baseUrl = ApiConst().apiUrl;
     final token = GetStorage().read('token');
@@ -65,22 +63,27 @@ class _GroupsPageState extends State<GroupsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : RefreshIndicator(
-      onRefresh: fetchGroups,
-      child: groups.isEmpty
-          ? const Center(
-        child: Text("Guruhlar mavjud emas"),
-      )
-          : ListView.builder(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(12),
-        itemCount: groups.length,
-        itemBuilder: (context, index) {
-          final group = groups[index];
-          return GroupCard(group: group);
-        },
+    return Scaffold(
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+        onRefresh: fetchGroups,
+        child: groups.isEmpty
+            ? const Center(
+          child: Text(
+            "Guruhlar mavjud emas",
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        )
+            : ListView.builder(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(12),
+          itemCount: groups.length,
+          itemBuilder: (context, index) {
+            final group = groups[index];
+            return GroupCard(group: group);
+          },
+        ),
       ),
     );
   }
@@ -94,38 +97,40 @@ class GroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int group_id = group['id'] ?? 0;
-    final String name = group['group_name'] ?? ' ';
+    final String name = group['group_name'] ?? 'Nomaʼlum';
     final int count = group['user_count'] ?? 0;
 
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue,width: 1.2),
-        borderRadius: BorderRadius.all(Radius.circular(12.0))
-      ),
-      margin: EdgeInsets.symmetric(vertical: 4.0),
-      padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 12.0),
+    return Card(
+      color: Colors.white,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),side: BorderSide(width: 1.2,color: Colors.blue)),
+      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
       child: InkWell(
-        onTap: (){
-          Get.to(()=>GroupShowPage(group_id: group_id));
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          Get.to(() => GroupShowPage(group_id: group_id));
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Text("Guruh:",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
-                SizedBox(width: 4.0,),
-                Text(name,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0),),
-              ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.group, color: Colors.blue, size: 32),
+            title: Text(
+              name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            Row(
-              children: [
-                Icon(Icons.people, color: Colors.grey),
-                SizedBox(width: 4,),
-                Text("$count ta bola"),
-              ],
+            subtitle: Text(
+              "$count ta bola",
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
             ),
-          ],
+            trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+          ),
         ),
       ),
     );
