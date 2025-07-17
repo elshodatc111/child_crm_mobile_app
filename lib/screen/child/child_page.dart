@@ -37,15 +37,22 @@ class ChildPage extends StatelessWidget {
                 border: Border(left: BorderSide(color: Colors.green, width: 5)),
               ),
               child: ListTile(
-                leading: Icon(Icons.check_circle, color: Colors.green, size: 32),
+                leading: Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 32,
+                ),
                 title: Text(
                   "Aktiv bolalar",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
                 subtitle: Text("Hozirda faol bo'lganlar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  Get.to(()=>ActiveChildPage());
+                  Get.to(() => ActiveChildPage());
                 },
               ),
             ),
@@ -61,18 +68,27 @@ class ChildPage extends StatelessWidget {
                     offset: Offset(0, 3),
                   ),
                 ],
-                border: Border(left: BorderSide(color: Colors.orange, width: 5)),
+                border: Border(
+                  left: BorderSide(color: Colors.orange, width: 5),
+                ),
               ),
               child: ListTile(
-                leading: Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 32),
+                leading: Icon(
+                  Icons.warning_amber_rounded,
+                  color: Colors.orange,
+                  size: 32,
+                ),
                 title: Text(
                   "Qarzdorlar",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
                 subtitle: Text("To‘lov qilmagan bolalar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  Get.to(()=>DebitChildPage());
+                  Get.to(() => DebitChildPage());
                 },
               ),
             ),
@@ -91,19 +107,26 @@ class ChildPage extends StatelessWidget {
                 border: Border(left: BorderSide(color: Colors.blue, width: 5)),
               ),
               child: ListTile(
-                leading: Icon(Icons.people_alt_rounded, color: Colors.blue, size: 32),
+                leading: Icon(
+                  Icons.people_alt_rounded,
+                  color: Colors.blue,
+                  size: 32,
+                ),
                 title: Text(
                   "Tashriflar",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
                 subtitle: Text("Tashriflar"),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  Get.to(()=>TashriflarPage());
+                  Get.to(() => TashriflarPage());
                 },
               ),
             ),
-            SizedBox(height: 16.0,),
+            SizedBox(height: 16.0),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -116,7 +139,10 @@ class ChildPage extends StatelessWidget {
                   ),
                 ],
                 border: const Border(
-                  left: BorderSide(color: Colors.indigo, width: 5), // O‘qituvchilar uchun mos rang
+                  left: BorderSide(
+                    color: Colors.indigo,
+                    width: 5,
+                  ), // O‘qituvchilar uchun mos rang
                 ),
               ),
               child: ListTile(
@@ -136,64 +162,88 @@ class ChildPage extends StatelessWidget {
                 },
               ),
             ),
-            type=='tarbiyachi'?Text(""):type=='kichik_tarbiyachi'?Text(""):Column(
-              children: [
-                const SizedBox(height: 16),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 6,
-                        offset: Offset(0, 3),
+            type == 'tarbiyachi'
+                ? Text("")
+                : type == 'kichik_tarbiyachi'
+                ? Text("")
+                : Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 6,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        border: const Border(
+                          left: BorderSide(color: Colors.green, width: 5),
+                        ),
                       ),
-                    ],
-                    border: const Border(left: BorderSide(color: Colors.green, width: 5)),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(Icons.calendar_today, color: Colors.green, size: 32),
-                    title: const Text(
-                      "Hodimlar",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    subtitle: const Text("Hodimlar kunlik davomadi"),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {
-                      Get.to(()=>HodimDavomadPage());
-                    },
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 6,
-                        offset: Offset(0, 3),
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.calendar_today,
+                          color: Colors.green,
+                          size: 32,
+                        ),
+                        title: const Text(
+                          "Hodimlar",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        subtitle: const Text("Hodimlar kunlik davomadi"),
+                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                        onTap: () {
+                          Get.to(() => HodimDavomadPage());
+                        },
                       ),
-                    ],
-                    border: const Border(left: BorderSide(color: Colors.orange, width: 5)),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(Icons.work_outline, color: Colors.orange, size: 32),
-                    title: const Text(
-                      "Hodimlar Vakansiya",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                    subtitle: const Text("Bo'sh ish o'rinlari uchun nomzodlar"),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {
-                      Get.to(()=>HodimVacansyPage());
-                    },
-                  ),
+                    const SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 6,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        border: const Border(
+                          left: BorderSide(color: Colors.orange, width: 5),
+                        ),
+                      ),
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.work_outline,
+                          color: Colors.orange,
+                          size: 32,
+                        ),
+                        title: const Text(
+                          "Hodimlar Vakansiya",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        subtitle: const Text(
+                          "Bo'sh ish o'rinlari uchun nomzodlar",
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                        onTap: () {
+                          Get.to(() => HodimVacansyPage());
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
           ],
         ),
       ),
@@ -211,11 +261,7 @@ class ChildPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
         ],
         border: Border(left: BorderSide(color: color, width: 5)),
       ),
