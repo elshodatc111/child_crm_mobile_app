@@ -30,7 +30,7 @@ Widget BlockTarbiyachiWidget(
               ),
               const SizedBox(width: 8),
               Text(
-                tarbiyachi,
+                "${tarbiyachi} (Tark etgan)",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

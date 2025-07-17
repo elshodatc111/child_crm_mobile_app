@@ -126,8 +126,11 @@ class _GroupShowPageState extends State<GroupShowPage> {
                   label: "Davomad olish",
                   color: Colors.red,
                   icon: Icons.check_circle,
-                  onTap: () {
-                    Get.to(()=>GroupCrateDavomadPage(group_id: widget.group_id));
+                  onTap: () async {
+                    final result = await Get.to(() => GroupCrateDavomadPage(group_id: widget.group_id));
+                    if (result == true) {
+                      fetchAbout();
+                    }
                   },
                 ):_menuButton(
                   label: "Davomad olindi",

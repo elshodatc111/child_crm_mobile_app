@@ -31,7 +31,7 @@ Widget BlockChild(
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  name,
+                  "${name} (Tark etgan)",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

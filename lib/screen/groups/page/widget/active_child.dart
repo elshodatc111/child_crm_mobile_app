@@ -29,7 +29,7 @@ Widget ActiveChild(
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  name,
+                  "${name} (Aktiv)",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

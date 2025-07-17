@@ -29,7 +29,7 @@ Widget ActiveTarbiyachiWidget(
               ),
               const SizedBox(width: 8),
               Text(
-                tarbiyachi,
+                "${tarbiyachi} (Aktiv)",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
