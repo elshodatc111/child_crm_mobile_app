@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:child_app_drektor/screen/child/techer/techer_create_comment_page.dart';
+import 'package:child_app_drektor/screen/child/techer/techer_create_lessin_page.dart';
+import 'package:child_app_drektor/screen/child/techer/techer_lessin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,6 +11,7 @@ import '../../../const/api_const.dart';
 
 class TecherShowPage extends StatefulWidget {
   final int id;
+
   const TecherShowPage({super.key, required this.id});
 
   @override
@@ -44,9 +48,9 @@ class _TecherShowPageState extends State<TecherShowPage> {
       }
     } catch (e) {
       setState(() => isLoading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Xatolik: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Xatolik: $e")));
     }
   }
 
@@ -55,26 +59,25 @@ class _TecherShowPageState extends State<TecherShowPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("O'qituvchi haqida"),
-      ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : data == null
-          ? const Center(child: Text("Ma'lumotlar topilmadi"))
-          : SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildProfileCard(theme),
-            const SizedBox(height: 16),
-            _buildActionButtons(),
-            const SizedBox(height: 24),
-            _buildCommentSection(theme),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: const Text("O'qituvchi haqida")),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : data == null
+              ? const Center(child: Text("Ma'lumotlar topilmadi"))
+              : SingleChildScrollView(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildProfileCard(theme),
+                    const SizedBox(height: 16),
+                    _buildActionButtons(),
+                    const SizedBox(height: 24),
+                    _buildCommentSection(theme),
+                  ],
+                ),
+              ),
     );
   }
 
@@ -98,8 +101,14 @@ class _TecherShowPageState extends State<TecherShowPage> {
             _buildInfoRow(Icons.location_on, "Manzil", about['address']),
             _buildInfoRow(Icons.calendar_today, "Tug'ilgan kun", about['tkun']),
             const SizedBox(height: 16),
-            const Text("📊 Joriy oy statistikasi",
-                style: TextStyle(color: Colors.deepOrange, fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              "📊 Joriy oy statistikasi",
+              style: TextStyle(
+                color: Colors.deepOrange,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,7 +131,12 @@ class _TecherShowPageState extends State<TecherShowPage> {
         children: [
           Icon(icon, size: 20, color: Colors.blue),
           const SizedBox(width: 6),
-          Expanded(child: Text("$label:", style: const TextStyle(fontWeight: FontWeight.w500))),
+          Expanded(
+            child: Text(
+              "$label:",
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+          ),
           Text(value, style: const TextStyle(color: Colors.black87)),
         ],
       ),
@@ -138,10 +152,20 @@ class _TecherShowPageState extends State<TecherShowPage> {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         child: Column(
           children: [
-            Text(value.toString(),
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue)),
+            Text(
+              value.toString(),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(title, textAlign: TextAlign.center,style:TextStyle(fontSize: 8),),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 8),
+            ),
           ],
         ),
       ),
@@ -154,8 +178,13 @@ class _TecherShowPageState extends State<TecherShowPage> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
-            onPressed: () {
-              // TODO: Add comment function
+            onPressed: () async {
+              final result = await Get.to(
+                () => TecherCreateCommentPage(id: widget.id),
+              );
+              if (result == true) {
+                fetchTecherData();
+              }
             },
             icon: const Icon(Icons.comment_outlined),
             label: const Text("Izoh qoldirish"),
@@ -163,7 +192,9 @@ class _TecherShowPageState extends State<TecherShowPage> {
               backgroundColor: Colors.blueAccent,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
         ),
@@ -172,7 +203,7 @@ class _TecherShowPageState extends State<TecherShowPage> {
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () {
-              // TODO: Lessons history
+              Get.to(() => TecherLessinPage(id: widget.id));
             },
             icon: const Icon(Icons.history),
             label: const Text("Darslar tarixi"),
@@ -180,7 +211,9 @@ class _TecherShowPageState extends State<TecherShowPage> {
               backgroundColor: Colors.deepPurple,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
         ),
@@ -189,7 +222,7 @@ class _TecherShowPageState extends State<TecherShowPage> {
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () {
-              // TODO: Add new lesson
+              Get.to(()=>TecherCreateLessinPage(techer_id: widget.id));
             },
             icon: const Icon(Icons.add_circle_outline),
             label: const Text("Yangi dars qo'shish"),
@@ -197,7 +230,9 @@ class _TecherShowPageState extends State<TecherShowPage> {
               backgroundColor: Colors.green,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
         ),
@@ -216,8 +251,9 @@ class _TecherShowPageState extends State<TecherShowPage> {
           const Center(child: Text("Izohlar mavjud emas"))
         else
           ...comments.map((comment) {
-            final formattedDate =
-            DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(comment['created_at']));
+            final formattedDate = DateFormat(
+              'yyyy-MM-dd HH:mm',
+            ).format(DateTime.parse(comment['created_at']));
             return Card(
               color: Colors.white,
               margin: const EdgeInsets.symmetric(vertical: 6),
@@ -230,12 +266,18 @@ class _TecherShowPageState extends State<TecherShowPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("👤 ${comment['meneger']}"),
-                    Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text(
+                      formattedDate,
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
                   ],
                 ),
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 6.0),
-                  child: Text(comment['comment'], style: const TextStyle(fontSize: 16)),
+                  child: Text(
+                    comment['comment'],
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             );

@@ -6,6 +6,9 @@ class HodimVacansyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Hodim Vacansy"),),
+      body: Center(
+        child: Text("Tayyorlanmoqda..."),
+      ),
     );
   }
 }
