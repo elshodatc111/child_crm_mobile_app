@@ -5,7 +5,7 @@ class ChartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Statistika"),
+      child: Text("Tayyorlanmoqda..."),
     );
   }
 }
