@@ -23,17 +23,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 3),
       vsync: this,
     );
-
     _animation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-
     _controller.forward();
-
-    // 3 soniyadan keyin tekshiruvlar
     Future.delayed(const Duration(seconds: 1), () {
       checkConnectionAndNavigate();
     });
